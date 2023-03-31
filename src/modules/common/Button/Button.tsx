@@ -3,14 +3,10 @@ import React from "react";
 import styles from "./Button.module.scss";
 
 const Button = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+  const { onClick, title, ...rest } = props;
   return (
-    <button
-      type={props.type || "button"}
-      className={`${styles.Button} ${props.className}`}
-      onClick={props.onClick}
-      disabled={props.disabled}
-    >
-      <span>{props.title}</span>
+    <button className={styles.Button} onClick={onClick} {...rest}>
+      <span>{title}</span>
     </button>
   );
 };
