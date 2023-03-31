@@ -12,16 +12,17 @@ const TicketsList = ({ tickets, fetchTickets }: TicketsListProps) => {
     <VirtualizedList
       numItems={tickets.length}
       itemHeight={200}
-      windowHeight={400}
+      viewportHeight={400}
       renderItem={({ index, style }) => {
         const ticket = tickets[index];
         return (
-          <TicketItem
-            ticket={ticket}
-            key={ticket.id}
-            style={style}
-            fetchTickets={fetchTickets}
-          />
+          <div style={style} key={ticket.id}>
+            <TicketItem
+              ticket={ticket}
+              key={ticket.id}
+              fetchTickets={fetchTickets}
+            />
+          </div>
         );
       }}
     />
