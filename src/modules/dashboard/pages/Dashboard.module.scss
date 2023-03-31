@@ -1,0 +1,16 @@
+@import "../../../styleSheets/variables";
+
+.Wrapper {
+  width: 95%;
+  margin: 0 auto;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 100%;
+
+  @media (min-width: $breakpoint-sm) {
+    width: 90%;
+  }
+}
