@@ -9,17 +9,19 @@ const Dashboard = () => {
 
   const fetchTickets = useCallback(() => {
     getAllTickets().then((res) => setTickets(res));
-  }, [setTickets]);
+  }, []);
 
   useEffect(() => {
     fetchTickets();
   }, [fetchTickets]);
 
-  return (
-    <>
+  return tickets.length ? (
+    <div>
       <AddNewTicketButton fetchTickets={fetchTickets} />
       <TicketsList tickets={tickets} fetchTickets={fetchTickets} />
-    </>
+    </div>
+  ) : (
+    <p>Something went wrong, please check the server.</p>
   );
 };
 
