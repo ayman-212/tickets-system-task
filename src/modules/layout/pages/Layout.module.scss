@@ -1,3 +1,5 @@
+@import "../../../styleSheets//variables";
+
 .Layout {
   display: flex;
   flex-direction: column;
@@ -6,5 +8,12 @@
 
 .Main {
   flex: 1;
-  background-color: #f1f1ca;
+  width: 95%;
+  margin: 0 auto;
+  padding: 24px 0;
+  height: 100%;
+
+  @media (min-width: $breakpoint-sm) {
+    width: 90%;
+  }
 }

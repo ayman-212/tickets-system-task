@@ -5,8 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.14),
-    0px 2px 4px -1px rgba(0, 0, 0, 0.2);
+  @extend %border-shadow;
   background-color: #fff;
   padding: 1rem 0;
   z-index: 1;
