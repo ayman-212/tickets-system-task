@@ -1,12 +1,16 @@
 import React from "react";
 import VirtualizedList from "../../common/VirtualizedList/VirtualizedList";
-import TicketItem from "../components/TicketItem";
+import TicketItem from "./TicketItem";
 import { ITicket } from "../types/dashboard-types";
 
 type TicketsListProps = {
   tickets: ITicket[];
   fetchTickets: () => void;
 };
+
+/**
+ * this component used to render all the tickets
+ */
 const TicketsList = ({ tickets, fetchTickets }: TicketsListProps) => {
   return (
     <VirtualizedList

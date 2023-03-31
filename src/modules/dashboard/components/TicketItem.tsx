@@ -10,6 +10,11 @@ type TicketItemProp = {
   fetchTickets: () => void;
 };
 
+/**
+ *this component meant to manage the ticket details and also deleting a certain ticket
+ * @param param0 the ticket details
+ * @param param1 function gets called after deleting a ticket to retrieve all tickets again.
+ */
 const TicketItem = ({ ticket, fetchTickets }: TicketItemProp) => {
   const { subject, description, priority, status, id } = ticket;
 

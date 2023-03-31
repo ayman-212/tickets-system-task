@@ -8,20 +8,30 @@ type AddNewTicketButtonProps = {
   fetchTickets: () => void;
 };
 
+/**
+ * @returns a unique id
+ */
+
 const generateId: () => string = () => {
   return Date.now().toString(36) + Math.random().toString(36).slice(2);
 };
 
+/**
+ *this component meant to manage adding new ticket
+ * @param param0 function gets called after adding a new ticket to retrieve all tickets again.
+ */
+
 const AddNewTicketButton = ({ fetchTickets }: AddNewTicketButtonProps) => {
+  const newTicket: ITicket = {
+    id: generateId(),
+    subject: "Cupiditate ipsum quaerat labore molestias suscipit",
+    description:
+      "Corrupti impedit dignissimos ipsum aliquid. Tenetur repellendus nisi totam ipsa tempora. Quaerat labore molestias suscipit",
+    priority: "Medium",
+    status: "New",
+  };
+
   const addNewTicketHandler = () => {
-    const newTicket: ITicket = {
-      id: generateId(),
-      subject: "Cupiditate ipsum quaerat labore molestias suscipit",
-      description:
-        "Corrupti impedit dignissimos ipsum aliquid. Tenetur repellendus nisi totam ipsa tempora. Quaerat labore molestias suscipit",
-      priority: "Medium",
-      status: "New",
-    };
     addNewTicket(newTicket)
       .then(() => {
         toast.success("A new task has been added successfully", {
@@ -35,6 +45,7 @@ const AddNewTicketButton = ({ fetchTickets }: AddNewTicketButtonProps) => {
         });
       });
   };
+
   return (
     <Button
       title="Add New Ticket"

@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { getAllTickets } from "../api/dashboard-api";
-import AddNewTicketButton from "../containers/AddNewTicketButton";
-import TicketsList from "../containers/TicketsList";
+import AddNewTicketButton from "../components/AddNewTicketButton";
+import TicketsList from "../components/TicketsList";
 import { ITicket } from "../types/dashboard-types";
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState<ITicket[]>([]);
-
+  /**
+   * send HTTP request to get all tickets and then use setTickets to set the tickets
+   */
   const fetchTickets = useCallback(() => {
     getAllTickets().then((res) => setTickets(res));
   }, []);
