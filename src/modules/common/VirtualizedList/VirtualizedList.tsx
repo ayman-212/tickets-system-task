@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import styles from "./VirtualizedList.module.scss";
 
 type IRenderItemParams = {
@@ -9,20 +9,28 @@ type IRenderItemParams = {
 type VirtualizedListProps = {
   numItems: number;
   itemHeight: number;
-  renderItem: ({ index, style }: IRenderItemParams) => ReactNode;
-  windowHeight: number;
+  renderItem: ({ index, style }: IRenderItemParams) => React.ReactElement;
+  viewportHeight: number;
 };
 
+const amountItemsBuffered = 1;
+
 const VirtualizedList = (props: VirtualizedListProps) => {
-  const { numItems, itemHeight, renderItem, windowHeight } = props;
+  const { numItems, itemHeight, renderItem, viewportHeight } = props;
   const [scrollTop, setScrollTop] = useState<number>(0);
-  const innerHeight: number = numItems * itemHeight;
-  const startIndex: number = Math.floor(scrollTop / itemHeight);
-  const endIndex: number = Math.min(
-    numItems - 1,
-    Math.floor((scrollTop + windowHeight) / itemHeight)
+  const totalItemsHeight: number = numItems * itemHeight;
+  const startIndex: number = Math.max(
+    Math.floor(scrollTop / itemHeight) - amountItemsBuffered,
+    0
   );
-  const items: ReactNode[] = [];
+
+  const endIndex: number = Math.min(
+    Math.ceil((scrollTop + viewportHeight) / itemHeight - 1) +
+      amountItemsBuffered,
+    numItems - 1
+  );
+
+  const items: React.ReactElement[] = [];
   for (let i = startIndex; i <= endIndex; i++) {
     items.push(
       renderItem({
@@ -31,24 +39,22 @@ const VirtualizedList = (props: VirtualizedListProps) => {
           position: "absolute",
           top: `${i * itemHeight}px`,
           height: `${itemHeight - 20}px`,
+          width: "100%",
         },
       })
     );
   }
   const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (Math.abs(e.currentTarget.scrollTop - scrollTop) > itemHeight) {
-      console.log(e);
-      setScrollTop(e.currentTarget.scrollTop);
-    }
+    setScrollTop(e.currentTarget.scrollTop);
   };
 
   return (
     <div
-      style={{ height: windowHeight }}
+      style={{ height: viewportHeight }}
       className={styles.VirtualizedListWrapper}
       onScroll={onScroll}
     >
-      <div style={{ position: "relative", height: `${innerHeight}px` }}>
+      <div style={{ position: "relative", height: `${totalItemsHeight}px` }}>
         {items}
       </div>
     </div>
